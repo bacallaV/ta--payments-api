@@ -5,7 +5,10 @@ const usersRouter = express.Router();
 // Controllers
 const { UserController } = require('../controllers/auth.controller');
 
-usersRouter.post('/login', UserController.login);
+// Validators
+const loginValidator = require("../utils/validators/login.validator");
+
+usersRouter.post('/login', loginValidator(), UserController.login);
 
 
 module.exports = usersRouter

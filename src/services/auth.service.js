@@ -24,7 +24,7 @@ const UserService = {
 
     return {
       token: jwt.sign(
-        { user: user.id },
+        { user: existingUser.id },
         JWT_KEY,
         { expiresIn: '1h' },
       ),
