@@ -1,0 +1,6 @@
+node_modules/
+.env
+postgres_data/
+my_database.json
+.DS_Store
+db.json
