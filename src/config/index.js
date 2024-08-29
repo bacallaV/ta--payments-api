@@ -1,4 +1,5 @@
 const fs = require('fs');
+const crypto = require('crypto');
 
 const {
   PORT,
@@ -16,6 +17,7 @@ if (!fs.existsSync(DB)) {
     PAYMENTS: [],
     USERS: [
       {
+        id: crypto.randomUUID(),
         name: 'Administrador',
         lastName: '',
         username: 'admin',

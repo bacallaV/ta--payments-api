@@ -2,40 +2,9 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-const { DB } = require('../config');
+const { DB, JWT_KEY } = require('../config');
 
 const UserService = {
-  create: async (req, res) => {
-    // const newUser = req.body;
-
-    // const existingUser = await User.findOne({
-    //   where: {
-    //     email: newUser.email,
-    //   }
-    // });
-    // if(existingUser) return res.status(400).json({
-    //   message: 'Email already used'
-    // });
-
-    // // Crypting password
-    // newUser.password = await bcrypt.hash(newUser.password, 10);
-    // // Creating new user
-    // const user = await User.create(newUser)
-  
-    // // Handling response
-    // if(user) return res.status(200).json({
-    //   message: 'User created successfully'
-    // });
-  
-    res.status(500).json({
-      message: 'Error while creating user'
-    });
-  },
-  findAll: async (req, res) => {
-    return res.status(200).json({
-      data: [],
-    });
-  },
   login: async (user) => {
     // Reading file
     const data = fs.readFileSync(DB);
@@ -56,7 +25,7 @@ const UserService = {
     return {
       token: jwt.sign(
         { user: user.id },
-        'my-key',
+        JWT_KEY,
         { expiresIn: '1h' },
       ),
     };
