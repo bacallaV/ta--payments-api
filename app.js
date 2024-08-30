@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 // ENV
 const dotenv = require('dotenv');
 dotenv.config();
@@ -10,6 +11,8 @@ const router = require('./src/routes');
 const PORT = config.PORT ?? 3001;
 
 const app = express();
+app.use(cors());
+
 app.use(express.json());
 
 app.use('/api', router);
