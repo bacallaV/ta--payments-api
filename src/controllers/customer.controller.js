@@ -24,12 +24,22 @@ const CustomerController = {
       });
     }
   },
-  findAll: async (_, res) => {
+  findAll: async (req, res) => {
+    const validationErrors = validationResult(req);
+
     try {
+      if (!validationErrors.isEmpty()) throw new Error('Validation error');
+
       return res.status(200).json(
-        await CustomerService.findAll()
+        await CustomerService.findAll(req.query?.query)
       );
     } catch (error) {
+      if (error.message === 'Validation error')
+        return res.status(400).json({
+          message: error.message,
+          errors: validationErrors.errors,
+        });
+
       return res.status(500).json({
         message: 'Internal server error'
       });

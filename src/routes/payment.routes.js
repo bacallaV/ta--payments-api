@@ -9,9 +9,12 @@ const { PaymentController } = require('../controllers/payment.controller');
 const { Auth } = require('../middlewares/auth.middleware');
 
 // Validators
-const paymentValidator = require("../utils/validators/payment.validator");
+const {
+    paymentValidator,
+    getAllPaymentsValidator,
+} = require("../utils/validators/payment.validator");
 
-paymentRouter.get("/", Auth, PaymentController.findAll);
+paymentRouter.get("/", Auth, getAllPaymentsValidator(), PaymentController.findAll);
 paymentRouter.post("/", Auth, paymentValidator(), PaymentController.create);
 
 module.exports = paymentRouter;

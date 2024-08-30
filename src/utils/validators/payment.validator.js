@@ -38,4 +38,29 @@ const paymentValidator = () => checkExact(
   )
 );
 
-module.exports = paymentValidator;
+const getAllPaymentsValidator = () => checkExact(
+  checkSchema(
+    {
+      sortBy: {
+        optional: true,
+        matches: {
+          options: [/\b(?:amount|date)\b/],
+          errorMessage: "invalid value for sortBy parameter",
+        },
+      },
+      sortOrder: {
+        optional: true,
+        matches: {
+          options: [/\b(?:asc|desc)\b/],
+          errorMessage: "invalid value for sortOrder parameter",
+        },
+      },
+    },
+    ['query']
+  )
+);
+
+module.exports = {
+  paymentValidator,
+  getAllPaymentsValidator,
+};

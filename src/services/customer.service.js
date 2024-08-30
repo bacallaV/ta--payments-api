@@ -28,7 +28,7 @@ const CustomerService = {
       ...customer,
     };
   },
-  findAll: async () => {
+  findAll: async (name) => {
     // Reading file
     const data = fs.readFileSync(DB);
     if (!data) throw new Error('Database error');
@@ -36,6 +36,14 @@ const CustomerService = {
     // Getting user from db json file
     let { CUSTOMERS } = JSON.parse(data.toString());
     if (!CUSTOMERS) throw new Error('Database error');
+
+    if (name) {
+      return {
+        data: CUSTOMERS.filter(
+          (c) => c.name.toLowerCase().includes(name),
+        ),
+      }
+    }
 
     return {
       data: CUSTOMERS,
